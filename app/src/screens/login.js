@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, Button, ImageBackground } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, Button, Vibration } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Line } from 'react-native-svg';
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
+ 
+
 
 
 
@@ -10,6 +12,16 @@ export default function Login() {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const ONE_SECOND_IN_MS = 1000;
+
+    const PATTERN = [1 * ONE_SECOND_IN_MS, 2 * ONE_SECOND_IN_MS, 3 * ONE_SECOND_IN_MS];
+
+    const PATTERN_DESC =
+    Platform.OS === 'android'
+      ? 'wait 1s, vibrate 2s, wait 3s'
+      : 'wait 1s, vibrate, wait 2s, vibrate, wait 3s';
+
+       
 
    
     return (
@@ -29,7 +41,7 @@ export default function Login() {
 
             </View>
             <View style={{alignSelf:'center', marginTop:'10%'}}>
-           <Text onPress={()=>{navigation.navigate('Home')}} style={{backgroundColor:'#16B65C', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
+           <Text onPress={() => Vibration.vibrate(10 * ONE_SECOND_IN_MS)} style={{backgroundColor:'#16B65C', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
            fontSize:15, textAlign:'center', paddingVertical:'3.5%', paddingHorizontal:'10%', borderRadius:5, marginTop:'20%'}}>SIGN IN</Text>
             </View>
             </View>

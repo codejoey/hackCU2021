@@ -25,6 +25,7 @@
     "react-native": "~0.63.4",
     "react-native-elements": "^3.2.0",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-haptic-feedback": "^1.11.0",
     "react-native-maps": "0.27.1",
     "react-native-mmkv": "^1.0.6",
     "react-native-paper": "^4.7.2",
