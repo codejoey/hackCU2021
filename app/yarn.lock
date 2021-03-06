@@ -6178,6 +6178,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment@2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+  integrity sha512-Yh9y73JRljxW5QxN08Fner68eFLxM5ynNOAw2LbIB1YAGeQzZT8QFSUvkAz609Zf+IHhhaUxqZK8dG3W/+HEvg==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -6965,6 +6970,13 @@ react-native-gesture-handler@~1.8.0:
     hoist-non-react-statics "^3.3.0"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-google-fit@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/react-native-google-fit/-/react-native-google-fit-0.16.2.tgz#78ca9514b3a0ca68f9ebaaa14131013bc67b4e62"
+  integrity sha512-lNjKrv9JUVPeFgoPKt68I2YWX1TmzynuxE06LkzRySGzNEXwQU8saF7CQBzzMYhq6t1YZ1gq/fX6N3eR29/RkA==
+  dependencies:
+    moment "2.20.1"
 
 react-native-haptic-feedback@^1.11.0:
   version "1.11.0"
