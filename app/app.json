@@ -1,0 +1,15 @@
+{
+  "name": "app",
+  "displayName": "app",
+  "splash": {
+    "image": "./src/assets/logo.png"
+  },
+  "expo": {
+    "name": "app",
+    "slug": "app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
