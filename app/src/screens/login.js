@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View, Image, Button, Vibration } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 import {ButtonGroup, Input, Icon} from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 
 
 
@@ -124,8 +125,8 @@ export default function Login() {
 
 
             <View style={{alignSelf:'center', marginTop:'10%'}}>
-           <Text onPress={() => Vibration.vibrate(10 * ONE_SECOND_IN_MS)} style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
-           fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'25%'}}>Submit</Text>
+           <TouchableOpacity onPress={() => navigation.navigate('Location')}><Text style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
+           fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'90%'}}>Submit</Text></TouchableOpacity>
             </View>
             </View>
         </View>
