@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 import Logo from '../../assets/logo.png';
+import Happy from '../../assets/happy.png';
+
 import { Link } from 'react-router-dom';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
@@ -24,7 +26,7 @@ class Emotion extends React.Component {
           return <Marker key={index} id={index} position={{
            lat: store.latitude,
            lng: store.longitude
-         }}><img src={Logo}></img></Marker>
+         }} icon="https://img.icons8.com/emoji/452/angry-face-emoji--v2.png"></Marker>
         })
       }
 
@@ -54,7 +56,7 @@ class Emotion extends React.Component {
 
 }
 export default GoogleApiWrapper({
-    apiKey: 'TOKEN HERE'
+    apiKey: 'AIzaSyBtKZ2lodfK2NSO_9fRjMxOUJslQH2tFEQ'
   })(Emotion);
 const mapStyles = {
     width: '100%',
