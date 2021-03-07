@@ -1,18 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, Button, Vibration, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, Button, Vibration, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 import {ButtonGroup, Input, Icon, ListItem} from 'react-native-elements';
 import { Audio } from 'expo-av';
 import {LineChart,} from "react-native-chart-kit";
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
+import { AnimatedEmoji } from 'react-native-animated-emoji';
+
+const ONE_SECOND_IN_MS = 1000;
+
+  const PATTERN = [1 * ONE_SECOND_IN_MS, 2 * ONE_SECOND_IN_MS, 3 * ONE_SECOND_IN_MS];
+
+  const PATTERN_DESC =
+    Platform.OS === 'android'
+      ? 'wait 1s, vibrate 2s, wait 3s'
+      : 'wait 1s, vibrate, wait 2s, vibrate, wait 3s';
+
+
 
 
 
 
 export default function Emotion() {
     const navigation = useNavigation();
-    const [mood, setMood] = useState('nervous');
+    const [mood, setMood] = useState('neutral');
     const [history, setHistory] = useState(0);
+
     const list = [
         {
           title: '03-07-2021 14:20',
@@ -31,6 +47,11 @@ export default function Emotion() {
      
   
       async function startRecording() {
+        setTimeout(() => {
+          setMood('angry');
+          Vibration.vibrate(10 * ONE_SECOND_IN_MS)
+
+        }, 5000);
           try {
             console.log('Requesting permissions..');
             await Audio.requestPermissionsAsync();
@@ -41,7 +62,27 @@ export default function Emotion() {
             }); 
             console.log('Starting recording..');
             const recording = new Audio.Recording();
-            await recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+            await recording.prepareToRecordAsync({
+              ios: {
+                extension: '.m4a',
+                outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
+                audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX,
+                sampleRate: 44100,
+                numberOfChannels: 1,
+                bitRateStrategy: Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT,
+                linearPCMBitDepth: 16,
+                linearPCMIsBigEndian: false,
+                linearPCMIsFloat: false,
+                bitRate: 128000,
+              },
+              android: {
+                extension: '.wav',
+                outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+                audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+                sampleRate: 44100,
+                numberOfChannels: 1,
+                bitRate: 128000,
+            }})
             await recording.startAsync(); 
             setRecording(recording);
             console.log('Recording started');
@@ -55,10 +96,98 @@ export default function Emotion() {
           setRecording(undefined);
           await recording.stopAndUnloadAsync();
           const uri = recording.getURI(); 
+
+          
           _sendAudio(uri);
           playSound(uri);
+
           console.log('Recording stopped and stored at', uri);
+
+          saveToPhoneLibrary();
+          uploadRecFromPhone();
         }
+
+
+
+
+
+
+
+
+
+//AUDIO UPLOAD
+async function createAudioAsset() {
+  let newAss = await MediaLibrary.createAssetAsync(recording.getURI())
+  MediaLibrary.createAlbumAsync('Recordings', newAss)
+  .then(() => {
+    console.log('Album created!');
+  })
+  .catch(error => {
+    console.log('err', error);
+  });
+  }
+
+  async function saveToPhoneLibrary(){
+    createAudioAsset()
+  .then(asset => MediaLibrary.saveToLibraryAsync(asset))
+  .catch(err => console.log('media library save asset err', err))
+  }
+
+  async function  uploadRecFromPhone(){
+    DocumentPicker.getDocumentAsync({
+      type: '*/*',
+      copyToCacheDirectory: true,
+      base64: true
+    })
+    .then(succ => {
+      console.log(`Recording Information -- path: ${succ.uri}, type: ${succ.type}, size: ${succ.size}`)
+      
+const xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://d6803cb46723.ngrok.io/getemotion');
+xhr.onload = () => {
+	const response = JSON.parse(xhr.response);
+
+	console.log(response);
+};
+xhr.onerror = e => {
+	console.log(e, 'upload failed');
+};
+xhr.ontimeout = e => {
+	console.log(e, 'upload timeout');
+};
+const formData = new FormData();
+
+formData.append('file', {
+	uri: succ.uri, 		
+	type: `audio/mpeg`,  
+	name: `upload${Math.random().toFixed(0)}.wav`    
+});
+// 6. upload the request
+xhr.send(formData);
+// 7. track upload progress
+if (xhr.upload) {
+	// track the upload progress
+	xhr.upload.onprogress = ({ total, loaded }) => {
+		const uploadProgress = (loaded / total);
+		console.log(uploadProgress);
+	};
+}
+     
+    });
+
+    
+  }
+  
+  
+  
+   
+
+
+
+
+
+
+
   
       async function playSound(uri) {
           console.log('Loading Sound');
@@ -68,21 +197,19 @@ export default function Emotion() {
           setSound(sound);
       
           console.log('Playing Sound');
-          await sound.playAsync(); }
+          await sound.playAsync(); 
+        }
   
-      const _sendAudio = (uri) =>{
-        const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Accept': "multipart/form-data",
-            'Content-Type': 'multipart/form-data',
-        },
-          body: ({file:uri})
-      };
-      fetch('https://upload.box.com/api/2.0/files/content/', requestOptions)
-          .then(response => response.json())
-          .then(data => console.log(data));
+        
+          
+        
+      
+        const _sendAudio = (uri) =>{
+      
+
       }
+ 
+  
   
 
     return (
@@ -101,6 +228,9 @@ export default function Emotion() {
             {mood == 'neutral' &&<Icon name="sentiment-neutral" type="material-icons" color={'#FFC30C'} size={60}></Icon>}
             {mood == 'angry' &&<Icon name="angry" type="font-awesome-5" color={'#FFC30C'} size={60}></Icon>}
             {mood == 'nervous' &&<Icon name="nervous" type="fontisto" color={'#FFC30C'} size={60}></Icon>}
+
+
+          
 
 
 

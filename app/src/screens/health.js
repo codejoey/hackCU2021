@@ -31,17 +31,17 @@ export default function Health() {
             <View style={{borderRadius:20,borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', marginRight:'2.5%', elevation:1, backgroundColor:'#FFF'}}>
                 <Icon name="pulse" type="fontisto" color={"#2193D1"} size={20}></Icon>
                 <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Pulse Rate</Text>
-                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>50</Text>
+                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>65 bps</Text>
             </View>
             <View style={{borderRadius:20, borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', elevation:1, backgroundColor:'#FFF'}}>
                 <Icon name="shoe-prints" type="font-awesome-5" color={"#2193D1"} size={20}></Icon>
                 <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Steps</Text>
-                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>50</Text>
+                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>561</Text>
             </View>
             <View style={{borderRadius:20, borderColor:'#2193D1', height:100, width:'92%', padding:'7.5%', marginTop:'5%', elevation:1, backgroundColor:'#FFF'}}>
                 <Icon name="brain" type="font-awesome-5" color={"#2193D1"} size={20}></Icon>
-                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Stress Levels</Text>
-                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>50</Text>
+                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Stress Level</Text>
+                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>Normal</Text>
             </View>
             </View>}
 
@@ -102,12 +102,12 @@ export default function Health() {
                     datasets: [
                         {
                         data: [
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100
+                            Math.random() * 1000,
+                            Math.random() * 1000,
+                            Math.random() * 1000,
+                            Math.random() * 1000,
+                            Math.random() * 1000,
+                            Math.random() * 1000
                         ]
                         }
                     ]

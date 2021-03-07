@@ -13,6 +13,8 @@ export default function Login() {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [otp, setOtp] = useState(0);
+
     const ONE_SECOND_IN_MS = 1000;
 
     const PATTERN = [1 * ONE_SECOND_IN_MS, 2 * ONE_SECOND_IN_MS, 3 * ONE_SECOND_IN_MS];
@@ -30,7 +32,27 @@ export default function Login() {
     const buttons = ['Login', 'Sign Up']
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    
+    const _login = () =>{
+        fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/acumen', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'login',
+                email: email,
+                password: password,
+            })
+            })
+            .then((response) => response)
+            .then((json) => {
+                console.log(json.toString());
+                })
+            .catch((error) => {
+            console.error(error);
+            });
+            }
       
 
        
@@ -45,8 +67,9 @@ export default function Login() {
                 onPress={setSelectedIndex}
                 selectedIndex={selectedIndex}
                 buttons={buttons}
+                textStyle={{fontWeight:'bold', fontSize:20}}
                 selectedButtonStyle={{backgroundColor:'#36A044'}}
-                containerStyle={{height: 30, borderColor:'#36A044', width:'50%', alignSelf:'center', marginTop:'15%', backgroundColor:'#FFF8F1'}}
+                containerStyle={{height: 30, borderColor:'#36A044', width:'70%', alignSelf:'center', marginTop:'15%', backgroundColor:'#FFF8F1'}}
             />
                                     
            {selectedIndex==0 &&
@@ -55,24 +78,28 @@ export default function Login() {
             <Input
                 placeholder='   Email'
                 style={{backgroundColor:'#FFF', borderRadius:20}}
+                value={email}
+                onChangeText={setEmail}
                 leftIcon={
                     <Icon
                     name='envelope'
                     type='font-awesome'
                     size={24}
-                    color='black'
+                    color='#36A044'
                     />
                 }
             />  
             <Input
                 placeholder='   Password'
                 style={{backgroundColor:'#FFF', borderRadius:20}}
+                value={password}
+                onChangeText={setPassword}
                 leftIcon={
                     <Icon
                     name='lock'
                     type='font-awesome'
                     size={24}
-                    color='black'
+                    color='#36A044'
                     />
                 }
                 secureTextEntry
@@ -91,7 +118,7 @@ export default function Login() {
                     name='envelope'
                     type='font-awesome'
                     size={24}
-                    color='black'
+                    color='#36A044'
                     />
                 }
             />  
@@ -103,10 +130,12 @@ export default function Login() {
                     name='user'
                     type='font-awesome'
                     size={24}
-                    color='black'
+                    color='#36A044'
                     />
                 }
             /> 
+       
+
             <Input
                 placeholder='   Password'
                 style={{backgroundColor:'#FFF', borderRadius:20}}
@@ -115,7 +144,7 @@ export default function Login() {
                     name='lock'
                     type='font-awesome'
                     size={24}
-                    color='black'
+                    color='#36A044'
                     />
                 }
                 secureTextEntry
@@ -125,8 +154,8 @@ export default function Login() {
 
 
             <View style={{alignSelf:'center', marginTop:'10%'}}>
-           <TouchableOpacity onPress={() => navigation.navigate('Location')}><Text style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
-           fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'90%'}}>Submit</Text></TouchableOpacity>
+           <TouchableOpacity onPress={() => {navigation.navigate('Location')}}><Text style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
+           fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'170%'}}>Submit</Text></TouchableOpacity>
             </View>
             </View>
         </View>
