@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -8,6 +9,7 @@ Created on Thu Apr 16 15:07:17 2020
 from scipy.spatial import distance as dist
 import numpy as np
 import cv2
+from google.colab.patches import cv2_imshow
 from imutils import face_utils
 from imutils.video import VideoStream
 from fastai.vision import *
@@ -118,7 +120,7 @@ while True:
         cv2.putText(frame, "Eye Ratio: {:.2f}".format(ear), (250, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         time_value = data_time(time_value, prediction, probability, ear)
 
-    cv2.imshow("frame", frame)
+    cv2_imshow("frame", frame)
 
     if args["save"]:
         out.write(frame)
