@@ -11,6 +11,8 @@ import { TouchableOpacity } from 'react-native';
 export default function Record() {
     const navigation = useNavigation();
     const [recording, setRecording] = useState();
+    const [sound, setSound] = React.useState();
+
    
 
     async function startRecording() {
@@ -38,8 +40,35 @@ export default function Record() {
         setRecording(undefined);
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI(); 
+        _sendAudio(uri);
+        playSound(uri);
         console.log('Recording stopped and stored at', uri);
       }
+
+    async function playSound(uri) {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+           {uri:uri}
+        );
+        setSound(sound);
+    
+        console.log('Playing Sound');
+        await sound.playAsync(); }
+
+    const _sendAudio = (uri) =>{
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Accept': "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
+          'Authorization':'PwN5MFQqcwKCZu56T9dpWg2gaz21EwnF'
+      },
+        body: ({file:uri})
+    };
+    fetch('https://upload.box.com/api/2.0/files/content/', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
 
       
     
@@ -53,15 +82,21 @@ export default function Record() {
    
     return (
         <View style={styles.container}>
-            <Text style={{backgroundColor:'#73B941', height:100, color:'#FFF', fontWeight:'bold', 
-            textAlign:'center', paddingTop:'10%', fontSize:20}}>Record speech</Text>
+          <Text style={{color:'#000', fontSize:30, fontWeight:'bold', marginTop:'15%', marginLeft:'5%'}}>Hello, John Doe</Text>
 
-       
-            <View style={{paddingHorizontal:'10%', marginTop:'10%',paddingTop:'5%', height:100}}>
-            
-            
+          <View style={{paddingHorizontal:'10%', marginTop:'10%',paddingTop:'5%', flexDirection:'row', flexWrap:'wrap', alignSelf:'center'}}>
+            <View style={{borderRadius:20,borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', marginRight:'2.5%', elevation:1, backgroundColor:'#FFF'}}>
+                <Icon name="happy" type="fontisto" color={"#2193D1"} size={20}></Icon>
+                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Emotion</Text>
+                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>Happy</Text>
+
             </View>
-
+            <View style={{borderRadius:20, borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', elevation:1, backgroundColor:'#FFF'}}>
+                <Icon name="brain" type="font-awesome-5" color={"#2193D1"} size={20}></Icon>
+                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Stress</Text>
+                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>50</Text>
+            </View>
+            </View>
 
 
             <View style={{alignSelf:'center', marginTop:'10%'}}>
@@ -70,7 +105,7 @@ export default function Record() {
            fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'25%'}}>{recording ? 'Stop Recording' : 'Start Recording'}</Text>
             </View>
     
-            <View style={{backgroundColor:'#FFF', height:50, position:'absolute', bottom:0, borderTopRightRadius:10, 
+            <View style={{backgroundColor:'#FFF', height:50, position:'absolute', bottom:0, borderTopRightRadius:10, elevation:10, 
             borderTopLeftRadius:10, width:'100%', paddingHorizontal:'15%', flexDirection:'row', paddingVertical:'2.5%'}}>
               <TouchableOpacity onPress={()=>{navigation.navigate('Record')}}><Text style={{marginRight:'20%'}}><Icon name="home" type="feather" color={'#36A044'}></Icon></Text></TouchableOpacity>
               <TouchableOpacity onPress={()=>{navigation.navigate('Emotion')}}><Text style={{marginRight:'20%'}}><Icon name="smile-o" type="font-awesome" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>
