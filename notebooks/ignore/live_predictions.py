@@ -2,11 +2,8 @@ import keras
 import librosa
 import numpy as np
 
-#from config import EXAMPLES_PATH
-#from config import MODEL_DIR_PATH
-pathname = 'gdrive/My Drive/hackcu/'
-MODEL_DIR_PATH = pathname
-EXAMPLES_PATH = pathname #+ "angry_file.wav"
+from config import EXAMPLES_PATH
+from config import MODEL_DIR_PATH
 
 class LivePredictions:
     """
