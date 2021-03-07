@@ -39,7 +39,7 @@ export default function LocationSettings() {
            {loc != '' &&
            <Text style={{fontWeight:'500', textAlign:'center', color:'#36A044'}}><Icon name="location-on" type="material-icons" size={20} color={'#36A044'}></Icon>{loc.latitude},{loc.longitude}</Text>}
             <View style={{alignSelf:'center', marginTop:'10%'}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Record')}><Text  style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
+          <TouchableOpacity onPress={() => navigation.navigate('Emotion')}><Text  style={{backgroundColor:'#36A044', color:'#FFF', textAlignVertical:'center', fontWeight:'bold', 
            fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'70%'}}>Continue</Text></TouchableOpacity>
             </View>
             </View>

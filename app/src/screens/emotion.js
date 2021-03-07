@@ -92,9 +92,11 @@ export default function Emotion() {
             textAlign:'center', paddingTop:'10%', fontSize:20}}>My Emotions</Text>
             <TouchableOpacity onPress={()=>{setHistory(!history)}}><Text style={{backgroundColor:'#FFE28E', height:50, color:'#FFF', fontWeight:'900', 
             textAlign:'center', paddingTop:'3.5%', fontSize:20}}>View History</Text></TouchableOpacity>
+            <TouchableOpacity onPress={recording ? stopRecording : startRecording}><Text style={{textAlign:'center', marginTop:'40%'}}><Icon name={recording ? 'mic':'mic-off'} size={60} color='#FFF' style={{borderRadius:50, backgroundColor:'#FFC30C', alignSelf:'center'}}></Icon></Text></TouchableOpacity>
+            {!recording &&<Text style={{fontWeight:'100', fontSize:15, alignSelf:'center', textAlign:'center', flexWrap:'wrap', width:'70%', color:'#8E8E8E', marginBottom:'2.5%'}}>Start recording to gauge emotion</Text>}
 
-{history==0 &&
-            <View style={{paddingHorizontal:'10%', marginTop:'40%',paddingTop:'5%', height:150, elevation:1, borderRadius:20, backgroundColor:'#FFF', width:'50%', alignSelf:'center'}}>
+{history==0 && recording &&
+            <View style={{paddingHorizontal:'10%', marginTop:'20%',paddingTop:'5%', height:150, elevation:1, borderRadius:20, backgroundColor:'#FFF', width:'50%', alignSelf:'center'}}>
             {mood == 'happy' &&<Icon name="happy" type="ionicon" color={'#FFC30C'} size={60}></Icon>}
             {mood == 'sad' &&<Icon name="sad" type="ionicon" color={'#FFC30C'} size={60}></Icon>}
             {mood == 'neutral' &&<Icon name="sentiment-neutral" type="material-icons" color={'#FFC30C'} size={60}></Icon>}
@@ -125,7 +127,7 @@ export default function Emotion() {
     
            <View style={{backgroundColor:'#FFF', height:50, position:'absolute', bottom:0, borderTopRightRadius:10, 
             borderTopLeftRadius:10, width:'100%', paddingHorizontal:'15%', flexDirection:'row', paddingVertical:'2.5%'}}>
-              <TouchableOpacity onPress={()=>{navigation.navigate('Record')}}><Text style={{marginRight:'20%'}}><Icon name="home" type="feather" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>
+              <TouchableOpacity onPress={()=>{}}><Text style={{marginRight:'20%'}}><Icon name="home" type="feather" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>
               <TouchableOpacity onPress={()=>{navigation.navigate('Emotion')}}><Text style={{marginRight:'20%'}}><Icon name="smile-o" type="font-awesome" color={'#FFC30C'}></Icon></Text></TouchableOpacity>
               <TouchableOpacity onPress={()=>{navigation.navigate('Health')}}><Text style={{marginRight:'20%'}}><Icon name="barschart" type="ant-design" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>
               <TouchableOpacity><Text style={{marginRight:'20%'}}><Icon name="settings" type="feather" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>

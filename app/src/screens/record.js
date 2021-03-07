@@ -82,21 +82,15 @@ export default function Record() {
    
     return (
         <View style={styles.container}>
-          <Text style={{color:'#000', fontSize:30, fontWeight:'bold', marginTop:'15%', marginLeft:'5%'}}>Hello, John Doe</Text>
+            <Text style={{backgroundColor:'#73B941', height:100, color:'#FFF', fontWeight:'bold', 
+            textAlign:'center', paddingTop:'10%', fontSize:20}}>Home</Text>
 
-          <View style={{paddingHorizontal:'10%', marginTop:'10%',paddingTop:'5%', flexDirection:'row', flexWrap:'wrap', alignSelf:'center'}}>
-            <View style={{borderRadius:20,borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', marginRight:'2.5%', elevation:1, backgroundColor:'#FFF'}}>
-                <Icon name="happy" type="fontisto" color={"#2193D1"} size={20}></Icon>
-                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Emotion</Text>
-                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>Happy</Text>
+       
+            <View style={{paddingHorizontal:'10%', marginTop:'10%',paddingTop:'5%', height:100}}>
+            
+            
+            </View>
 
-            </View>
-            <View style={{borderRadius:20, borderColor:'#2193D1', height:100, width:'45%', padding:'7.5%', elevation:1, backgroundColor:'#FFF'}}>
-                <Icon name="brain" type="font-awesome-5" color={"#2193D1"} size={20}></Icon>
-                <Text style={{fontWeight:'bold', fontSize:10, textAlign:'center', color:'#2193D1'}}>Stress</Text>
-                <Text style={{fontWeight:'bold', fontSize:20, textAlign:'center', color:'#2193D1'}}>50</Text>
-            </View>
-            </View>
 
 
             <View style={{alignSelf:'center', marginTop:'10%'}}>
@@ -105,7 +99,7 @@ export default function Record() {
            fontSize:15, textAlign:'center', paddingVertical:'2.5%', paddingHorizontal:'10%', borderRadius:20, marginTop:'25%'}}>{recording ? 'Stop Recording' : 'Start Recording'}</Text>
             </View>
     
-            <View style={{backgroundColor:'#FFF', height:50, position:'absolute', bottom:0, borderTopRightRadius:10, elevation:10, 
+            <View style={{backgroundColor:'#FFF', height:50, position:'absolute', bottom:0, borderTopRightRadius:10, 
             borderTopLeftRadius:10, width:'100%', paddingHorizontal:'15%', flexDirection:'row', paddingVertical:'2.5%'}}>
               <TouchableOpacity onPress={()=>{navigation.navigate('Record')}}><Text style={{marginRight:'20%'}}><Icon name="home" type="feather" color={'#36A044'}></Icon></Text></TouchableOpacity>
               <TouchableOpacity onPress={()=>{navigation.navigate('Emotion')}}><Text style={{marginRight:'20%'}}><Icon name="smile-o" type="font-awesome" color={'#A9A5A5'}></Icon></Text></TouchableOpacity>
