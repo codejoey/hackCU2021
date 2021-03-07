@@ -56,7 +56,7 @@ class Emotion extends React.Component {
 
 }
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyBtKZ2lodfK2NSO_9fRjMxOUJslQH2tFEQ'
+    apiKey: API_KEY
   })(Emotion);
 const mapStyles = {
     width: '100%',
