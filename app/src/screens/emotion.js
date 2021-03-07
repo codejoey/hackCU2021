@@ -92,8 +92,8 @@ export default function Emotion() {
             textAlign:'center', paddingTop:'10%', fontSize:20}}>My Emotions</Text>
             <TouchableOpacity onPress={()=>{setHistory(!history)}}><Text style={{backgroundColor:'#FFE28E', height:50, color:'#FFF', fontWeight:'900', 
             textAlign:'center', paddingTop:'3.5%', fontSize:20}}>View History</Text></TouchableOpacity>
-            <TouchableOpacity onPress={recording ? stopRecording : startRecording}><Text style={{textAlign:'center', marginTop:'40%'}}><Icon name={recording ? 'mic':'mic-off'} size={60} color='#FFF' style={{borderRadius:50, backgroundColor:'#FFC30C', alignSelf:'center'}}></Icon></Text></TouchableOpacity>
-            {!recording &&<Text style={{fontWeight:'100', fontSize:15, alignSelf:'center', textAlign:'center', flexWrap:'wrap', width:'70%', color:'#8E8E8E', marginBottom:'2.5%'}}>Start recording to gauge emotion</Text>}
+            {history==0 &&<TouchableOpacity onPress={recording ? stopRecording : startRecording}><Text style={{textAlign:'center', marginTop:'40%'}}><Icon name={recording ? 'mic':'mic-off'} size={60} color='#FFF' style={{borderRadius:50, backgroundColor:'#FFC30C', alignSelf:'center'}}></Icon></Text></TouchableOpacity>}
+            {!recording && history==0 &&<Text style={{fontWeight:'100', fontSize:15, alignSelf:'center', textAlign:'center', flexWrap:'wrap', width:'70%', color:'#8E8E8E', marginBottom:'2.5%'}}>Start recording to gauge emotion</Text>}
 
 {history==0 && recording &&
             <View style={{paddingHorizontal:'10%', marginTop:'20%',paddingTop:'5%', height:150, elevation:1, borderRadius:20, backgroundColor:'#FFF', width:'50%', alignSelf:'center'}}>
