@@ -1,3 +1,4 @@
+#doesn't work in jupyter, need to run in terminal
 import pyaudio
 import wave
  #
