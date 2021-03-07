@@ -16,6 +16,9 @@ import argparse
 import time
 import dlib
 
+from config import root_dir
+from config import base_dir
+
 ap = argparse.ArgumentParser()
 ap.add_argument("--save", dest="save", action = "store_true")
 ap.add_argument("--no-save", dest="save", action = "store_false")
@@ -25,7 +28,7 @@ ap.add_argument("--no-savedata", dest="savedata", action = "store_false")
 ap.set_defaults(savedata = False)
 args = vars(ap.parse_args())
 
-path = '/Users/joycezheng/FacialRecognitionVideo/'
+path = root_dir
 learn = load_learner(path, 'export.pkl')
 
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
