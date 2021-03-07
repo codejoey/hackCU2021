@@ -61,7 +61,6 @@ export default function Record() {
         headers: {
           'Accept': "multipart/form-data",
           'Content-Type': 'multipart/form-data',
-          'Authorization':'PwN5MFQqcwKCZu56T9dpWg2gaz21EwnF'
       },
         body: ({file:uri})
     };
